@@ -1,0 +1,46 @@
+Develop a text narrator using Amazon Polly
+
+Services to be used
+Amazon Polly: Converts text to life like speech with customizable features.
+AWS Management Console: Manages accounts and configures Amazon Polly.
+AWS IAM: Ensures secure access by managing user permissions.
+
+Create an IAM role
+In this project, we will try to access the Amazon Polly service and store the audio output in a S3 bucket using a Lambda function.
+For that we need an IAM role with suitable policies attached to it.
+From your AWS management console, search for IAM from the search bar.
+Navigate to Access Management → Roles → Create Role.
+Select AWS service as the trusted entity type and Lambda as your use case. Click on Next.
+From the list of permission policies, choose the following policies :
+AmazonPollyFullAccess
+AmazonS3FullAccess
+AWSLambdaBasicExecutionRole
+Click on Next.
+Provide a suitable name and description for the IAM role and click on Create role.
+
+Create an S3 bucket
+From your AWS management console, search for S3 from the search bar.
+Click on Create bucket.
+Give a suitable name for the S3 bucket, keep the rest of the configurations as it is and click on Create bucket.
+
+Create a Lambda function
+From your AWS management console, navigate to Lambda from the search bar.
+Click on Create function.
+Give an appropriate name to the Lambda function and choose Node.js 16.x as the runtime environment.
+Toggle the option ‘Change default configuration role’ and check ‘Use existing role’.
+Choose the role that you created earlier, leave the rest of configurations as default and click Next.
+Rename your ‘index.mjs’ file to ‘index.js’.
+We're using Amazon's tools (AWS SDK) to talk to two services: Polly (for making speech from text) and S3 (for storing files).
+Deploy code (code in attached file)
+
+Checking the ouput
+Click on Test and configure a test event for your Lambda function.
+Provide a name for your test configuration and in the Event JSON, provide the text you want to be converted to audio in the form:
+
+"text":"The text to be converted to Audio"
+
+Leave the rest of configurations as default and click ‘Save’.
+Click on Test button again to invoke the test event.
+Check the output.
+Audio file can be accessed by checking it in the previously created S3 bucket and downloading it.
+
